@@ -56,7 +56,7 @@ numpy>=1.23.0
    
 3. 执行安装命令：
 ```
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 验证安装是否成功
 ```
