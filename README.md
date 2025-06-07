@@ -28,7 +28,7 @@ src/
 确保已安装 `Python 3.8+` 和 `pip`，并进入项目目录：
 
 ```
-cd ~/mushroom-identity/src
+cd mushroom-identity/src
 ```
 # 
 #### ​**​2. 激活虚拟环境​**​
