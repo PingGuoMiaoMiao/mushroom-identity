@@ -28,21 +28,16 @@ src/
 确保已安装 `Python 3.8+` 和 `pip`，并进入项目目录：
 
 ```
-cd /path/to/project  # 进入项目根目录 cd src               # 进入代码目录
+cd /mushromm-identity/src
 ```
 # 
 #### ​**​2. 激活虚拟环境​**​
 
 ```
-source yolov5_env/bin/activate
+python -m venv yolov5_env 
+source yolov5_env/bin/activate  
 ```
-
 ✅ ​**​验证激活成功​**​：命令行前缀应显示 `(yolov5_env)`
-
-若yolov5_env有损坏可以通过
-```
-python -m venv yolov5_env
-```
 ### 方法1：通过 `pip` 逐个安装（推荐）
 
 `# 激活虚拟环境后执行（确保在yolov5_env环境下) 
@@ -64,8 +59,9 @@ pip install -r requirements.txt
 ```
 验证安装是否成功
 ```
- pip show onnxruntime opencv-python numpy 
+ pip show onnxruntime opencv-python numpy # 检查已安装的版本
 ```
+
 #### ​**​3. 检查依赖​**​
 
 ```
@@ -75,11 +71,10 @@ pip list | grep -E "onnxruntime|opencv-python|numpy"
 🔧 ​**​若缺少依赖​**​，执行：
 
 ```
-pip install -r requirements.txt 
+pip install -r requirements.txt
 ```
 
 #### ​**​4. 运行程序​**
-​
 
 | 运行相关参数       | 作用          |
 | ------------ | ----------- |
