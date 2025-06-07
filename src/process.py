@@ -5,7 +5,7 @@ import numpy as np
 import onnxruntime as ort
 from typing import List, Dict
 
-def calculate_iou(box1, box2):
+def calculate_iou(box1: Dict, box2: Dict) -> float:
     """计算两个框的IOU(交并比)"""
     x1 = max(box1['x'], box2['x'])
     y1 = max(box1['y'], box2['y'])
@@ -19,7 +19,7 @@ def calculate_iou(box1, box2):
     
     return inter_area / union_area if union_area > 0 else 0
 
-def non_max_suppression(boxes, iou_threshold=0.5):
+def non_max_suppression(boxes: List[Dict], iou_threshold: float = 0.5) -> List[Dict]:
     """非极大值抑制(NMS)处理"""
     if len(boxes) == 0:
         return []
@@ -126,20 +126,56 @@ class MushroomDetector:
                        0.5, (0, 255, 0), 2)
         cv2.imwrite(output_path, img)
 
-def init_detector(model_path: str, confidence: float = 0.25):
+def init_detector(model_path: str, confidence: float = 0.25) -> MushroomDetector:
     """初始化蘑菇检测器"""
     return MushroomDetector(model_path, confidence)
 
-def process_img(detector, img_path: str) -> List[Dict]:
-    """处理单张蘑菇图片"""
+def process_img(img_path: str) -> List[Dict]:
+    """处理单张蘑菇图片(兼容原接口)"""
+    # 使用默认模型路径
+    model_path = 'best.onnx'
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"模型文件 {model_path} 不存在")
+    
+    detector = init_detector(model_path)
     return detector.predict(img_path)
 
-if __name__=='__main__':
-    # 测试代码
-    detector = init_detector('best.onnx')
-    test_img = 'test.jpg'
-    if os.path.exists(test_img):
-        detections = process_img(detector, test_img)
-        print(f"检测结果: {detections}")
+if __name__ == '__main__':
+    # 保留原测试代码
+    imgs_folder = './imgs/'
+    if not os.path.exists(imgs_folder):
+        os.makedirs(imgs_folder)
+        print(f"测试图片文件夹 {imgs_folder} 不存在，已创建")
+    
+    img_paths = [f for f in os.listdir(imgs_folder) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+    
+    def now():
+        return int(time.time()*1000)
+    
+    last_time = 0
+    count_time = 0
+    max_time = 0
+    min_time = float('inf')
+    
+    for img_path in img_paths:
+        print(img_path, ':')
+        last_time = now()
+        result = process_img(os.path.join(imgs_folder, img_path))
+        run_time = now() - last_time
+        print('result:\n', result)
+        print('run time: ', run_time, 'ms')
+        print()
+        
+        count_time += run_time
+        if run_time > max_time:
+            max_time = run_time
+        if run_time < min_time:
+            min_time = run_time
+    
+    if img_paths:
+        print('\n')
+        print('avg time: ', int(count_time/len(img_paths)), 'ms')
+        print('max time: ', max_time, 'ms')
+        print('min time: ', min_time, 'ms')
     else:
-        print(f"测试图片 {test_img} 不存在")
+        print(f"没有找到测试图片，请将图片放入 {imgs_folder} 文件夹")
