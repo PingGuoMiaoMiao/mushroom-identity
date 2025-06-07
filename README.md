@@ -33,7 +33,9 @@ cd /path/to/project  # 进入项目根目录 cd src               # 进入代码
 # 
 #### ​**​2. 激活虚拟环境​**​
 
-`source yolov5_env/bin/activate  # 激活虚拟环境`
+```
+source yolov5_env/bin/activate
+```
 
 ✅ ​**​验证激活成功​**​：命令行前缀应显示 `(yolov5_env)`
 
