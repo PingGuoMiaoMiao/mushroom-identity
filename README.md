@@ -9,7 +9,7 @@
 └── README.md #说明启动流程
 ```
 
-项目代码格式
+**项目代码格式**
 
 ```
 src/
@@ -23,7 +23,7 @@ src/
 └── outputs/         # 输出目录
 ```
 
-#### **​1. 环境准备​**​
+#### **​1. 环境准备​**
 
 确保已安装 `Python 3.8+` 和 `pip`，并进入项目目录：
 
@@ -42,8 +42,10 @@ cd /path/to/project  # 进入项目根目录 cd src               # 进入代码
 python -m venv yolov5_env  # 创建虚拟环境
 ```
 ### 方法1：通过 `pip` 逐个安装（推荐）
+
+`# 激活虚拟环境后执行（确保在yolov5_env环境下) 
 ```
-`# 激活虚拟环境后执行（确保在yolov5_env环境下 pip install onnxruntime opencv-python numpy`
+pip install onnxruntime opencv-python numpy
 ```
 ### 方法2：通过 `requirements.txt` 批量安装
 
@@ -54,7 +56,7 @@ opencv-python>=4.7.0
 numpy>=1.23.0 
 ```
    
-3. 执行安装命令：
+2. 执行安装命令：
 ```
 pip install -r requirements.txt
 ```
@@ -70,16 +72,32 @@ pip install -r requirements.txt
 
 `pip install -r requirements.txt  # 安装全部依赖`
 
-#### ​**​4. 运行程序​**​
+#### ​**​4. 运行程序​**
+​
+
+| 运行相关参数       | 作用          |
+| ------------ | ----------- |
+| --output     | 输出路径        |
+| --model      | 蘑菇检测模型路径    |
+| --folder     | 输入蘑菇图片文件夹路径 |
+| --confidence | 检测置信度阈值     |
+| --image      | 输入蘑菇图片路径    |
+
+| 优化相关的参数     | 作用       |
+| ----------- | -------- |
+| --optimize  | 优化ONNX模型 |
+| --quantize  | 量化ONNX模型 |
+| --benchmark | 运行基准测试   |
+
 
 ```
-python main.py \   --image ./images/test.jpg \     # 输入图片路径   --output ./outputs/result.jpg \ # 输出路径（自动创建 outputs/）   --model ./models/best.onnx      # 模型路径`
+python main.py --folder images --output output --model model/best.onnx
 ```
 
 ✅ ​**​预期输出​**​：
 
 - 终端打印推理日志（如 `Detection completed!`）
-- 结果图片保存至 `./outputs/result.jpg`
+- 结果图片保存至 `./output/`
 
 #### ​**​5. 退出虚拟环境​**​
 
@@ -87,7 +105,7 @@ python main.py \   --image ./images/test.jpg \     # 输入图片路径   --outp
 
 ---
 
-### ​**​一键启动（可选）​**​
+### ​**​一键启动​**(暂未实现)​
 
 若已配置 `run.sh`，可直接执行：
 
@@ -95,4 +113,10 @@ python main.py \   --image ./images/test.jpg \     # 输入图片路径   --outp
 
 ​**​`run.sh` 示例内容​**​：
 
-`#!/bin/bash cd src source yolov5_env/bin/activate python main.py --image ./images/test.jpg --output ./outputs/result.jpg --model ./models/best.onnx deactivate`
+```
+#!/bin/bash
+cd src 
+source yolov5_env/bin/activate
+python main.py --folder images --output output --model model/best.onnx 
+deactivate
+```
