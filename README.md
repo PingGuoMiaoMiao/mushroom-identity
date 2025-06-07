@@ -42,7 +42,7 @@ source yolov5_env/bin/activate
 
 `# 激活虚拟环境后执行（确保在yolov5_env环境下) 
 ```
-pip install onnxruntime opencv-python numpy
+pip install onnx onnxruntime opencv-python numpy
 ```
 ### 方法2：通过 `requirements.txt` 批量安装
 
