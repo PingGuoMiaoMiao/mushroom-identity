@@ -41,7 +41,7 @@ source yolov5_env/bin/activate
 
 若yolov5_env有损坏可以通过
 ```
-python -m venv yolov5_env  # 创建虚拟环境
+python -m venv yolov5_env
 ```
 ### 方法1：通过 `pip` 逐个安装（推荐）
 
@@ -64,15 +64,19 @@ pip install -r requirements.txt
 ```
 验证安装是否成功
 ```
- pip show onnxruntime opencv-python numpy # 检查已安装的版本
+ pip show onnxruntime opencv-python numpy 
 ```
 #### ​**​3. 检查依赖​**​
 
-`pip list | grep -E "onnxruntime|opencv-python|numpy"`
+```
+pip list | grep -E "onnxruntime|opencv-python|numpy"
+```
 
 🔧 ​**​若缺少依赖​**​，执行：
 
-`pip install -r requirements.txt  # 安装全部依赖`
+```
+pip install -r requirements.txt 
+```
 
 #### ​**​4. 运行程序​**
 ​
@@ -103,7 +107,9 @@ python main.py --folder images --output output --model model/best.onnx
 
 #### ​**​5. 退出虚拟环境​**​
 
-`deactivate  # 退出虚拟环境`
+```
+deactivate
+```
 
 ---
 
